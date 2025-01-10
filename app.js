@@ -87,6 +87,17 @@ app.post("/testing",upload.single("image"),(req,res) => {
     res.redirect('/testing');
 });
 
+
+app.use("*",(req,res,next) => {
+    throw "This page doesn't exists!";
+});
+
+app.use((req,res,next) => {
+    let { error } = req.body();
+    console.log(error.message);
+        next();
+});
+
 app.listen(8080,() => {
     console.log('Server is listening to port 8080');
 });
